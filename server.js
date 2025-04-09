@@ -1,7 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,33 +14,27 @@ app.use(cors({
 
 app.use(express.json());
 
-const filePath = path.join(__dirname, 'places.json');
+// ✅ 임시 메모리 저장소 (재시작하면 초기화됨)
+let places = [];
 
 // ✅ 루트 확인용
 app.get('/', (req, res) => {
   res.send('API 정상 작동 중!');
 });
 
+// ✅ 장소 조회
 app.get('/api/places', (req, res) => {
-  if (!fs.existsSync(filePath)) return res.json([]);
-  const data = fs.readFileSync(filePath, 'utf-8');
-  res.json(JSON.parse(data || '[]'));
+  res.json(places);
 });
 
+// ✅ 장소 등록
 app.post('/api/places', (req, res) => {
   const newPlace = req.body;
-  let places = [];
-
-  if (fs.existsSync(filePath)) {
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    places = JSON.parse(raw || '[]');
-  }
-
   places.push(newPlace);
-  fs.writeFileSync(filePath, JSON.stringify(places, null, 2));
   res.json({ success: true, message: '✅ 장소가 등록되었습니다!' });
 });
 
+// ✅ 서버 실행
 app.listen(port, () => {
   console.log(`🚀 서버 실행 중: http://localhost:${port}`);
 });
