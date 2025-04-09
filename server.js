@@ -19,11 +19,11 @@ app.use(express.json());
 const filePath = path.join(__dirname, 'places.json');
 
 // ✅ 루트 테스트용 (생략 가능)
-app.get('/', (req, res) => {
+app.get('/test', (req, res) => {
   res.send('API 서버가 정상 작동 중입니다.');
 });
 
-app.get('/api/places', (req, res) => {
+app.get('/places', (req, res) => {
   if (!fs.existsSync(filePath)) return res.json([]);
   const data = fs.readFileSync(filePath, 'utf-8');
   res.json(JSON.parse(data || '[]'));
