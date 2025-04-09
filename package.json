@@ -1,0 +1,14 @@
+
+{
+  "name": "petmap-api",
+  "version": "1.0.0",
+  "description": "장소 정보 저장용 API 서버",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
