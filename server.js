@@ -8,10 +8,11 @@ const port = process.env.PORT || 3000;
 
 // CORS 설정 (Netlify에서 호출 가능하도록)
 app.use(cors({
-  origin: 'https://animal119.netlify.app',
-  methods: ['GET', 'POST'],
+  origin: 'https://animal119.netlify.app', // 또는 origin: true
+  methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type']
 }));
+
 
 app.use(express.json());
 
