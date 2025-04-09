@@ -11,6 +11,9 @@ app.use(cors({
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type']
 }));
+
+app.options('*', cors()); // 👉 preflight 요청 허용 (OPTIONS 메서드 처리)
+
 app.use(express.json());
 
 const filePath = path.join(__dirname, 'places.json');
